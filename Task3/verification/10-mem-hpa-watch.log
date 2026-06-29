@@ -1,0 +1,146 @@
+===== 22:44:06 (tick 1) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 12%/80%   1     10    1     3m40s
+-- pods: 1 running --
+scaletestapp-c857cbc7f-62gxx   1m    2Mi   
+===== 22:44:22 (tick 2) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 12%/80%   1     10    1     3m55s
+-- pods: 1 running --
+scaletestapp-c857cbc7f-62gxx   1m    2Mi   
+===== 22:44:37 (tick 3) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 12%/80%   1     10    1     4m10s
+-- pods: 1 running --
+scaletestapp-c857cbc7f-62gxx   1m    2Mi   
+===== 22:44:52 (tick 4) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 12%/80%   1     10    1     4m26s
+-- pods: 1 running --
+scaletestapp-c857cbc7f-62gxx   1m    2Mi   
+===== 22:45:08 (tick 5) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 145%/80%   1     10    1     4m41s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-62gxx   26m   29Mi   
+===== 22:45:23 (tick 6) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 145%/80%   1     10    2     4m56s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-62gxx   26m   29Mi   
+===== 22:45:38 (tick 7) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 145%/80%   1     10    2     5m12s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-62gxx   26m   29Mi   
+===== 22:45:54 (tick 8) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 145%/80%   1     10    2     5m27s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-62gxx   26m   29Mi   
+===== 22:46:09 (tick 9) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 12%/80%   1     10    2     5m42s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-62gxx   1m    2Mi   
+===== 22:46:24 (tick 10) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 12%/80%   1     10    2     5m58s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-62gxx   1m    2Mi   
+===== 22:46:40 (tick 11) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 12%/80%   1     10    2     6m13s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-62gxx   1m    2Mi   
+===== 22:46:55 (tick 12) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 12%/80%   1     10    2     6m28s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-62gxx   1m    2Mi   
+===== 22:47:11 (tick 13) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 68%/80%   1     10    2     6m44s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-62gxx   6m    24Mi   
+scaletestapp-c857cbc7f-fkdxp   1m    2Mi    
+===== 22:47:26 (tick 14) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 68%/80%   1     10    2     6m59s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-62gxx   6m    24Mi   
+scaletestapp-c857cbc7f-fkdxp   1m    2Mi    
+===== 22:47:41 (tick 15) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 68%/80%   1     10    2     7m14s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-62gxx   6m    24Mi   
+scaletestapp-c857cbc7f-fkdxp   1m    2Mi    
+===== 22:47:57 (tick 16) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 68%/80%   1     10    2     7m30s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-62gxx   6m    24Mi   
+scaletestapp-c857cbc7f-fkdxp   1m    2Mi    
+===== 22:48:12 (tick 17) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 79%/80%   1     10    2     7m45s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-62gxx   27m   29Mi   
+scaletestapp-c857cbc7f-fkdxp   1m    2Mi    
+===== 22:48:28 (tick 18) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 79%/80%   1     10    2     8m1s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-62gxx   27m   29Mi   
+scaletestapp-c857cbc7f-fkdxp   1m    2Mi    
+===== 22:48:43 (tick 19) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 79%/80%   1     10    2     8m16s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-62gxx   27m   29Mi   
+scaletestapp-c857cbc7f-fkdxp   1m    2Mi    
+===== 22:48:58 (tick 20) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 79%/80%   1     10    2     8m31s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-fkdxp   14m   28Mi   
+===== 22:49:13 (tick 21) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 140%/80%   1     10    2     8m46s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-fkdxp   14m   28Mi   
+===== 22:49:28 (tick 22) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 140%/80%   1     10    2     9m1s
+-- pods: 2 running --
+scaletestapp-c857cbc7f-fkdxp   14m   28Mi   
+55s
+-- pods running: 2 --
+scaletestapp-c857cbc7f-fkdxp   14m   28Mi   
+===== 22:49:37 (climb tick 6) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 140%/80%   1     10    2     9m10s
+-- pods running: 2 --
+scaletestapp-c857cbc7f-fkdxp   14m   28Mi   
+===== 22:49:53 (climb tick 7) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 140%/80%   1     10    2     9m26s
+-- pods running: 2 --
+scaletestapp-c857cbc7f-fkdxp   14m   28Mi   
+===== 22:50:08 (climb tick 8) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 76%/80%   1     10    2     9m41s
+-- pods running: 2 --
+scaletestapp-c857cbc7f-62gxx   24m   27Mi   
+scaletestapp-c857cbc7f-fkdxp   1m    2Mi    
+===== 22:50:23 (climb tick 9) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 76%/80%   1     10    2     9m56s
+-- pods running: 2 --
+scaletestapp-c857cbc7f-62gxx   24m   27Mi   
+scaletestapp-c857cbc7f-fkdxp   1m    2Mi    
+===== 22:50:38 (climb tick 10) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 76%/80%   1     10    2     10m
+-- pods running: 2 --
+scaletestapp-c857cbc7f-62gxx   24m   27Mi   
+scaletestapp-c857cbc7f-fkdxp   1m    2Mi    
+===== 22:50:54 (climb tick 11) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 76%/80%   1     10    2     10m
+-- pods running: 2 --
+scaletestapp-c857cbc7f-62gxx   24m   27Mi   
+scaletestapp-c857cbc7f-fkdxp   1m    2Mi    
+===== 22:51:09 (climb tick 12) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 139%/80%   1     10    2     10m
+-- pods running: 2 --
+scaletestapp-c857cbc7f-62gxx   24m   27Mi   
+===== 22:51:24 (climb tick 13) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 139%/80%   1     10    2     10m
+-- pods running: 2 --
+scaletestapp-c857cbc7f-62gxx   24m   27Mi   
+===== 22:51:40 (climb tick 14) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 139%/80%   1     10    2     11m
+-- pods running: 2 --
+scaletestapp-c857cbc7f-62gxx   24m   27Mi   
+===== 22:51:55 (climb tick 15) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 139%/80%   1     10    2     11m
+-- pods running: 2 --
+scaletestapp-c857cbc7f-62gxx   24m   27Mi   
+===== 22:52:10 (climb tick 16) =====
+scaletestapp-mem   Deployment/scaletestapp   memory: 143%/80%   1     10    2     11m
+-- pods running: 2 --
+scaletestapp-c857cbc7f-fkdxp   29m   28Mi   

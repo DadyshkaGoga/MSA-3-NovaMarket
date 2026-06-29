@@ -1,0 +1,126 @@
+===== 23:00:12 (rps tick 1) =====
+scaletestapp-rps   Deployment/scaletestapp   59533m/10   1     10    1     24s
+-- pods running: 4 --
+===== 23:00:27 (rps tick 2) =====
+scaletestapp-rps   Deployment/scaletestapp   75155m/10   1     10    4     39s
+-- pods running: 8 --
+===== 23:00:42 (rps tick 3) =====
+scaletestapp-rps   Deployment/scaletestapp   45447m/10   1     10    8     54s
+-- pods running: 10 --
+===== 23:00:57 (rps tick 4) =====
+scaletestapp-rps   Deployment/scaletestapp   13894m/10   1     10    10    70s
+-- pods running: 10 --
+===== 23:01:13 (rps tick 5) =====
+scaletestapp-rps   Deployment/scaletestapp   6380m/10   1     10    10    85s
+-- pods running: 10 --
+===== 23:01:28 (rps tick 6) =====
+scaletestapp-rps   Deployment/scaletestapp   2792m/10   1     10    10    100s
+-- pods running: 10 --
+===== 23:01:43 (rps tick 7) =====
+scaletestapp-rps   Deployment/scaletestapp   897m/10   1     10    10    115s
+-- pods running: 10 --
+===== 23:01:59 (rps tick 8) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    10    2m11s
+-- pods running: 10 --
+===== 23:02:14 (rps tick 9) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    10    2m26s
+-- pods running: 10 --
+===== 23:02:29 (rps tick 10) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    10    2m41s
+-- pods running: 10 --
+===== 23:03:09 (rps tick 11) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    10    2m56s
+-- pods running: 10 --
+===== 23:03:24 (rps tick 12) =====
+scaletestapp-rps   Deployment/scaletestapp   112m/10   1     10    10    3m37s
+-- pods running: 10 --
+===== 23:03:40 (rps tick 13) =====
+scaletestapp-rps   Deployment/scaletestapp   92m/10   1     10    10    3m52s
+-- pods running: 10 --
+===== 23:03:55 (rps tick 14) =====
+scaletestapp-rps   Deployment/scaletestapp   113m/10   1     10    10    4m7s
+-- pods running: 10 --
+===== 23:09:57 (rps tick 15) =====
+scaletestapp-rps   Deployment/scaletestapp   168m/10   1     10    10    4m22s
+-- pods running: 10 --
+===== 23:10:13 (rps tick 16) =====
+scaletestapp-rps   Deployment/scaletestapp   <unknown>/10   1     10    10    10m
+-- pods running: 10 --
+===== 23:10:28 (rps tick 17) =====
+scaletestapp-rps   Deployment/scaletestapp   76m/10   1     10    10    10m
+-- pods running: 10 --
+===== 23:18:42 (rps tick 18) =====
+scaletestapp-rps   Deployment/scaletestapp   114m/10   1     10    10    10m
+-- pods running: 10 --
+===== 23:18:53 (scaledown tick 5) =====
+scaletestapp-rps   Deployment/scaletestapp   171m/10   1     10    10    11m
+-- pods running: 10 --
+===== 23:19:24 (scaledown tick 6) =====
+scaletestapp-rps   Deployment/scaletestapp   81m/10   1     10    10    19m
+-- pods running: 10 --
+===== 23:19:54 (scaledown tick 7) =====
+scaletestapp-rps   Deployment/scaletestapp   172m/10   1     10    10    20m
+-- pods running: 10 --
+===== 23:20:24 (scaledown tick 8) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    8     20m
+-- pods running: 8 --
+===== 23:20:55 (scaledown tick 9) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    8     21m
+-- pods running: 8 --
+===== 23:21:25 (scaledown tick 10) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    8     21m
+-- pods running: 8 --
+===== 23:21:56 (scaledown tick 11) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    8     22m
+-- pods running: 8 --
+===== 23:22:26 (scaledown tick 12) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    8     22m
+-- pods running: 8 --
+===== 23:22:56 (scaledown tick 13) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    8     23m
+-- pods running: 8 --
+===== 23:23:27 (scaledown tick 14) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    8     23m
+-- pods running: 7 --
+===== 23:23:57 (scaledown tick 15) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    7     24m
+-- pods running: 7 --
+===== 23:24:27 (scaledown tick 16) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    7     24m
+-- pods running: 1 --
+===== 23:24:58 (scaledown tick 17) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    1     25m
+-- pods running: 1 --
+===== 23:25:28 (scaledown tick 18) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    1     25m
+-- pods running: 1 --
+===== 23:25:58 (scaledown tick 19) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    1     26m
+-- pods running: 1 --
+===== 23:26:29 (scaledown tick 20) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    1     26m
+-- pods running: 1 --
+===== 23:26:59 (scaledown tick 21) =====
+scaletestapp-rps   Deployment/scaletestapp   200m/10   1     10    1     27m
+-- pods running: 1 --
+===== 23:27:29 (scaledown tick 22) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    1     27m
+-- pods running: 1 --
+===== 23:28:00 (scaledown tick 23) =====
+scaletestapp-rps   Deployment/scaletestapp   200m/10   1     10    1     28m
+-- pods running: 1 --
+===== 23:28:30 (scaledown tick 24) =====
+scaletestapp-rps   Deployment/scaletestapp   199m/10   1     10    1     28m
+-- pods running: 1 --
+===== 23:29:00 (scaledown tick 25) =====
+scaletestapp-rps   Deployment/scaletestapp   200m/10   1     10    1     29m
+-- pods running: 1 --
+===== 23:29:31 (scaledown tick 26) =====
+scaletestapp-rps   Deployment/scaletestapp   200m/10   1     10    1     29m
+-- pods running: 1 --
+===== 23:30:29 (scaledown tick 27) =====
+scaletestapp-rps   Deployment/scaletestapp   200m/10   1     10    1     30m
+-- pods running: 1 --
+===== 23:35:58 (scaledown tick 28) =====
+scaletestapp-rps   Deployment/scaletestapp   68m/10   1     10    1     36m
+-- pods running: 1 --

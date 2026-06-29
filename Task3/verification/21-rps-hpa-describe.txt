@@ -1,0 +1,32 @@
+### Часть 2 — HPA по RPS (Prometheus + prometheus-adapter): доказательство
+
+# custom.metrics.k8s.io отдаёт http_requests_per_second на под (значения в милли-единицах, 52755m = 52.8 rps):
+   scaletestapp-c857cbc7f-49wf8 = 199m
+   scaletestapp-c857cbc7f-btdqh = 199m
+   scaletestapp-c857cbc7f-cw7kk = 199m
+   scaletestapp-c857cbc7f-fc5tk = 199m
+   scaletestapp-c857cbc7f-j9tpp = 200m
+   scaletestapp-c857cbc7f-jd6g5 = 199m
+   scaletestapp-c857cbc7f-jp4wm = 199m
+   scaletestapp-c857cbc7f-q2fv7 = 199m
+   scaletestapp-c857cbc7f-r4chs = 200m
+   scaletestapp-c857cbc7f-t4dml = 199m
+
+# describe hpa scaletestapp-rps:
+Metrics:                               ( current / target )
+  "http_requests_per_second" on pods:  199m / 10
+Min replicas:                          1
+Max replicas:                          10
+Deployment pods:                       10 current / 10 desired
+Conditions:
+  Type            Status  Reason               Message
+  ----            ------  ------               -------
+  AbleToScale     True    ScaleDownStabilized  recent recommendations were higher than current one, applying the highest recent recommendation
+  ScalingActive   True    ValidMetricFound     the HPA was able to successfully calculate a replica count from pods metric http_requests_per_second
+  ScalingLimited  False   DesiredWithinRange   the desired count is within the acceptable range
+Events:
+  Type    Reason             Age    From                       Message
+  ----    ------             ----   ----                       -------
+  Normal  SuccessfulRescale  2m38s  horizontal-pod-autoscaler  New size: 4; reason: pods metric http_requests_per_second above target
+  Normal  SuccessfulRescale  2m23s  horizontal-pod-autoscaler  New size: 8; reason: pods metric http_requests_per_second above target
+  Normal  SuccessfulRescale  2m8s   horizontal-pod-autoscaler  New size: 10; reason: pods metric http_requests_per_second above target

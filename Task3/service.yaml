@@ -1,0 +1,17 @@
+# Service to reach the test app inside the cluster.
+# Pods carry the prometheus.io/scrape annotation (see deployment) + a named http port.
+apiVersion: v1
+kind: Service
+metadata:
+  name: scaletestapp
+  labels:
+    app: scaletestapp
+spec:
+  type: ClusterIP
+  selector:
+    app: scaletestapp
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
