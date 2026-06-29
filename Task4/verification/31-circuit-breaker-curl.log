@@ -1,0 +1,20 @@
+### Circuit breaker — последовательные запросы (2 недоступных сервера, max_fails=5 каждый)
+# Ожидаем: первые ~10 запросов ждут таймаут ~3s (накопление 5 ошибок на сервер),
+# затем circuit breaker размыкается -> мгновенный fallback (десятки мс).
+
+request 1: HTTP 200 3.014307s
+request 2: HTTP 200 0.007872s
+request 3: HTTP 200 3.004304s
+request 4: HTTP 200 0.006731s
+request 5: HTTP 200 3.012959s
+request 6: HTTP 200 0.006505s
+request 7: HTTP 200 3.009928s
+request 8: HTTP 200 0.008961s
+request 9: HTTP 200 3.008632s
+request 10: HTTP 200 0.008718s
+request 11: HTTP 200 0.001263s
+request 12: HTTP 200 0.001021s
+request 13: HTTP 200 0.003843s
+request 14: HTTP 200 0.001039s
+request 15: HTTP 200 0.001098s
+request 16: HTTP 200 0.001901s
