@@ -1,0 +1,62 @@
+@startuml c2-eda-history
+' C4 Level 2 — Containers (обновлено для сценария «История заказов»).
+' Добавлен CQRS read-model (Order History Service), наполняемый доменными событиями.
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+title NovaMarket — Containers (C2, обновлённый). История заказов через CQRS read-model
+
+Person(buyer, "Покупатель", "Мобильное приложение: каталог, оформление, статус, история покупок")
+Person(seller, "Продавец", "Личный кабинет продавца")
+
+System_Ext(paygw, "Платёжный шлюз", "Внешний провайдер платежей")
+System_Ext(logistics, "Логистический провайдер", "Внешняя служба доставки")
+
+System_Boundary(nm, "NovaMarket") {
+  Container(gateway, "API Gateway", "NGINX", "Маршрутизация, TLS, rate limiting (Task4)")
+
+  Container(catalog, "Catalog Service", "сервис + PostgreSQL", "Каталог, цены, карточки, фильтры")
+  Container(cart, "Cart Service", "сервис + Redis", "Корзина покупателя")
+  Container(order, "Order Service", "сервис + PostgreSQL", "Агрегат заказа; Saga; статус; повтор заказа")
+  Container(inventory, "Inventory Service", "сервис + PostgreSQL", "Остатки и резервирование")
+  Container(payment, "Payment Service", "сервис + PostgreSQL", "Оплата, возвраты, чеки")
+  Container(delivery, "Delivery Service", "сервис + PostgreSQL", "Доставка, трек-номер")
+  Container(notification, "Notification Service", "сервис", "Уведомления")
+  Container(sellersvc, "Seller Service", "сервис + PostgreSQL", "Продавцы и их товары")
+  Container(review, "Review Service", "сервис + PostgreSQL", "Отзывы о товарах")
+
+  Container(history, "Order History Service", "сервис (CQRS read-model)", "Денормализованная проекция истории заказов для быстрого чтения; наполняется доменными событиями")
+  ContainerDb(historydb, "Order History Store", "PostgreSQL (read-optimized)", "Денормализованные заказы: товары, суммы, оплата, доставка, статус")
+
+  ContainerQueue(kafka, "Event Broker", "Apache Kafka", "order-, inventory-, payment-, delivery-events")
+}
+
+' --- Синхронные запросы ---
+Rel(buyer, gateway, "Каталог, оформление, статус, история", "HTTPS/REST")
+Rel(seller, gateway, "Кабинет продавца", "HTTPS/REST")
+Rel(gateway, catalog, "Каталог", "REST")
+Rel(gateway, order, "Оформление, статус, повтор заказа", "REST")
+Rel(gateway, history, "История покупок: список заказов и детали", "REST")
+Rel(gateway, review, "Оставить/читать отзывы", "REST")
+Rel(history, historydb, "Чтение проекции истории", "SQL")
+Rel(payment, paygw, "Списание, возврат, чек", "HTTPS")
+Rel(delivery, logistics, "Заявка, трек-номер", "HTTPS")
+
+' --- События (фрагмент, наполнение read-model) ---
+Rel(order, kafka, "publish Order*", "")
+Rel(payment, kafka, "publish Payment*", "")
+Rel(delivery, kafka, "publish Delivery*", "")
+Rel(kafka, history, "Order*/Payment*/Delivery* — проекция в read-model", "")
+Rel(kafka, notification, "события — уведомления", "")
+Rel(kafka, order, "события Saga — обновление статуса", "")
+
+note right of history
+  CQRS: команды (оформление, оплата, доставка)
+  идут по Saga в write-сервисы; чтение истории —
+  из денормализованной проекции одним быстрым
+  запросом. Eventual consistency (секунды).
+  Подробности и альтернативы — в ADR.md.
+end note
+
+SHOW_LEGEND()
+@enduml
