@@ -1,0 +1,60 @@
+@startuml c2-eda
+' C4 Level 2 — Containers. NovaMarket: событийная архитектура (EDA).
+' Вариант отрисовки потоков событий №1 (broker-centric): брокер показан явно,
+' так как один тип события потребляют несколько сервисов (fan-out).
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+title NovaMarket — Containers (C2). Событийная архитектура, обмен через брокер Apache Kafka
+
+Person(buyer, "Покупатель", "Мобильное приложение: каталог, корзина, оформление, статус заказа")
+Person(seller, "Продавец", "Личный кабинет: новые заказы и статусы отгрузки")
+
+System_Ext(paygw, "Платёжный шлюз", "Внешний провайдер платежей: списание, токенизация карты, возвраты")
+System_Ext(logistics, "Логистический провайдер", "Внешняя служба доставки: заявки, трек-номера")
+
+System_Boundary(nm, "NovaMarket") {
+  Container(gateway, "API Gateway", "NGINX", "Единая точка входа: маршрутизация, TLS, rate limiting по каналу (Task4)")
+
+  Container(catalog, "Catalog Service", "сервис + PostgreSQL", "Каталог, категории, цены, карточки, фильтры; актуализирует наличие по событиям склада")
+  Container(cart, "Cart Service", "сервис + Redis", "Корзина покупателя; инициирует оформление заказа")
+  Container(order, "Order Service", "сервис + PostgreSQL", "Агрегат заказа; инициатор Saga оформления; источник статуса заказа")
+  Container(inventory, "Inventory Service", "сервис + PostgreSQL", "Остатки и резервирование товаров на складе")
+  Container(payment, "Payment Service", "сервис + PostgreSQL", "Списание, привязка/токенизация карты, возвраты")
+  Container(delivery, "Delivery Service", "сервис + PostgreSQL", "Заявка на доставку, трек-номер, статус доставки")
+  Container(notification, "Notification Service", "сервис", "Уведомления покупателю и продавцу по событиям")
+  Container(sellersvc, "Seller Service", "сервис + PostgreSQL", "Продавцы и их товары; видимость статусов заказов")
+  Container(review, "Review Service", "сервис + PostgreSQL", "Отзывы покупателей о товарах")
+
+  ContainerQueue(kafka, "Event Broker", "Apache Kafka", "Топики доменных событий: order-, inventory-, payment-, delivery-, catalog-events")
+}
+
+' --- Синхронные запросы (чтение и команды) ---
+Rel(buyer, gateway, "Каталог, корзина, оформление, статус заказа", "HTTPS/REST")
+Rel(seller, gateway, "Кабинет продавца", "HTTPS/REST")
+Rel(gateway, catalog, "Каталог, карточки, фильтры", "REST")
+Rel(gateway, cart, "Корзина", "REST")
+Rel(gateway, order, "Оформление и статус заказа", "REST")
+Rel(gateway, sellersvc, "Кабинет продавца", "REST")
+Rel(gateway, review, "Отзывы", "REST")
+Rel(payment, paygw, "Списание, возврат, токенизация", "HTTPS")
+Rel(delivery, logistics, "Заявка на доставку, трек-номер", "HTTPS")
+
+' --- Публикация событий (producers -> Kafka) ---
+Rel(cart, kafka, "publish CartCheckedOut", "")
+Rel(order, kafka, "publish OrderCreated, OrderConfirmed, OrderCancelled", "")
+Rel(inventory, kafka, "publish InventoryReserved/Failed, InventoryReleased, StockChanged", "")
+Rel(payment, kafka, "publish PaymentSucceeded/Failed, PaymentRefunded", "")
+Rel(delivery, kafka, "publish DeliveryScheduled/Failed, OrderDelivered", "")
+
+' --- Потребление событий (Kafka -> consumers) ---
+Rel(kafka, inventory, "OrderCreated", "")
+Rel(kafka, payment, "InventoryReserved", "")
+Rel(kafka, delivery, "PaymentSucceeded", "")
+Rel(kafka, order, "Inventory*/Payment*/Delivery* — обновление статуса", "")
+Rel(kafka, catalog, "StockChanged — актуализация наличия", "")
+Rel(kafka, notification, "Order*/Payment*/Delivery* — уведомления", "")
+Rel(kafka, sellersvc, "OrderConfirmed, DeliveryScheduled", "")
+
+SHOW_LEGEND()
+@enduml

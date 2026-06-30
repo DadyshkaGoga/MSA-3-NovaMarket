@@ -1,0 +1,34 @@
+@startuml saga-fail-delivery
+title Saga «Оформление заказа» — отказ доставки (компенсации: возврат средств + снятие резерва)
+
+skinparam backgroundColor #FAFAFA
+skinparam sequenceMessageAlign center
+
+actor "Покупатель" as buyer
+participant "Order\nService" as order
+queue "Kafka" as bus
+participant "Inventory\nService" as inv
+participant "Payment\nService" as pay
+participant "Delivery\nService" as dlv
+
+order -> bus : publish OrderCreated
+bus -> inv : OrderCreated
+inv -> bus : publish InventoryReserved
+bus -> pay : InventoryReserved
+pay -> bus : publish PaymentSucceeded
+bus -> dlv : PaymentSucceeded
+dlv -> dlv : логист недоступен\n(заявку не создать)
+dlv -> bus : publish DeliverySchedulingFailed
+
+note over inv, dlv #FFE0E0: Компенсации в обратном порядке: сначала возврат, затем снятие резерва
+bus -> pay : DeliverySchedulingFailed
+pay -> pay : вернуть средства
+pay -> bus : publish PaymentRefunded
+bus -> inv : PaymentRefunded
+inv -> inv : снять резерв
+inv -> bus : publish InventoryReleased
+
+bus -> order : DeliverySchedulingFailed / PaymentRefunded / InventoryReleased
+order -> bus : publish OrderCancelled
+order -> buyer : статус «Отменён», средства возвращены
+@enduml

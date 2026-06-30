@@ -1,0 +1,48 @@
+@startuml saga-sequence-success
+title Saga «Оформление заказа» — успешный сценарий (хореография через Kafka)
+
+skinparam backgroundColor #FAFAFA
+skinparam sequenceMessageAlign center
+
+actor "Покупатель" as buyer
+participant "Cart\nService" as cart
+participant "Order\nService" as order
+queue "Kafka" as bus
+participant "Inventory\nService" as inv
+participant "Payment\nService" as pay
+participant "Delivery\nService" as dlv
+participant "Notification\nService" as ntf
+
+buyer -> cart : Оформить корзину
+cart -> bus : publish CartCheckedOut
+bus -> order : CartCheckedOut
+order -> order : создать заказ\n(статус «Ожидает оплаты»)
+order -> bus : publish OrderCreated
+
+bus -> inv : OrderCreated
+inv -> inv : зарезервировать товары
+inv -> bus : publish InventoryReserved
+
+bus -> pay : InventoryReserved
+pay -> pay : списать средства\n(внешний платёжный шлюз)
+pay -> bus : publish PaymentSucceeded
+bus -> order : PaymentSucceeded
+order -> order : статус «Оплачен и готовится»
+
+bus -> dlv : PaymentSucceeded
+dlv -> dlv : оформить заявку,\nполучить трек-номер
+dlv -> bus : publish DeliveryScheduled
+bus -> order : DeliveryScheduled
+order -> order : статус «Передан в доставку»
+order -> bus : publish OrderConfirmed
+
+== Уведомления (по ходу всех событий) ==
+bus -> ntf : OrderCreated / PaymentSucceeded / DeliveryScheduled
+ntf -> buyer : статус заказа
+ntf -> bus : (Seller Service уведомляет продавца об отгрузке)
+
+== Завершение доставки ==
+dlv -> bus : publish OrderDelivered
+bus -> order : OrderDelivered
+order -> order : статус «Доставлен»
+@enduml

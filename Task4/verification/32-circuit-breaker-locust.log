@@ -1,0 +1,65 @@
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+         Aggregated                                                                         0     0(0.00%) |      0       0       0      0 |    0.00        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                        3     0(0.00%) |     15       6      30     10 |    0.00        0.00
+         Aggregated                                                                         3     0(0.00%) |     15       6      30     10 |    0.00        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                        7     0(0.00%) |    869       6    3016     11 |    1.00        0.00
+         Aggregated                                                                         7     0(0.00%) |    869       6    3016     11 |    1.00        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                     3394     0(0.00%) |      5       0    3021      0 |    1.75        0.00
+         Aggregated                                                                      3394     0(0.00%) |      5       0    3021      0 |    1.75        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                    11070     0(0.00%) |      5       0    3021      1 |  154.83        0.00
+         Aggregated                                                                     11070     0(0.00%) |      5       0    3021      1 |  154.83        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                    18767     0(0.00%) |      3       0    3021      1 | 1101.50        0.00
+         Aggregated                                                                     18767     0(0.00%) |      3       0    3021      1 | 1101.50        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                    26926     0(0.00%) |      3       0    3021      2 | 1611.50        0.00
+         Aggregated                                                                     26926     0(0.00%) |      3       0    3021      2 | 1611.50        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                    35147     0(0.00%) |      2       0    3021      2 | 2403.70        0.00
+         Aggregated                                                                     35147     0(0.00%) |      2       0    3021      2 | 2403.70        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                    42942     0(0.00%) |      2       0    3021      2 | 3234.10        0.00
+         Aggregated                                                                     42942     0(0.00%) |      2       0    3021      2 | 3234.10        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                    50969     0(0.00%) |      2       0    3021      2 | 3928.10        0.00
+         Aggregated                                                                     50969     0(0.00%) |      2       0    3021      2 | 3928.10        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                    59012     0(0.00%) |      2       0    3021      2 | 3970.10        0.00
+         Aggregated                                                                     59012     0(0.00%) |      2       0    3021      2 | 3970.10        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                    67431     0(0.00%) |      2       0    3021      2 | 4020.20        0.00
+         Aggregated                                                                     67431     0(0.00%) |      2       0    3021      2 | 4020.20        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                    75414     0(0.00%) |      2       0    3021      2 | 4042.10        0.00
+         Aggregated                                                                     75414     0(0.00%) |      2       0    3021      2 | 4042.10        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                    83514     0(0.00%) |      2       0    3021      2 | 4047.90        0.00
+         Aggregated                                                                     83514     0(0.00%) |      2       0    3021      2 | 4047.90        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                    91473     0(0.00%) |      2       0    3021      2 | 4055.40        0.00
+         Aggregated                                                                     91473     0(0.00%) |      2       0    3021      2 | 4055.40        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                    98961     0(0.00%) |      2       0    3021      2 | 4039.30        0.00
+         Aggregated                                                                     98961     0(0.00%) |      2       0    3021      2 | 4039.30        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                   107320     0(0.00%) |      2       0    3021      2 | 4011.30        0.00
+         Aggregated                                                                    107320     0(0.00%) |      2       0    3021      2 | 4011.30        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                   115388     0(0.00%) |      2       0    3021      2 | 3991.00        0.00
+         Aggregated                                                                    115388     0(0.00%) |      2       0    3021      2 | 3991.00        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                   123718     0(0.00%) |      2       0    3021      2 | 3970.00        0.00
+         Aggregated                                                                    123718     0(0.00%) |      2       0    3021      2 | 3970.00        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                   131487     0(0.00%) |      2       0    3021      2 | 4005.50        0.00
+         Aggregated                                                                    131487     0(0.00%) |      2       0    3021      2 | 4005.50        0.00
+Type     Name                                                                          # reqs      # fails |    Avg     Min     Max    Med |   req/s  failures/s
+GET      /logistics/                                                                   138380     0(0.00%) |      2       0    3021      2 | 3472.13        0.00
+         Aggregated                                                                    138380     0(0.00%) |      2       0    3021      2 | 3472.13        0.00
+Type     Name                                                                                  50%    66%    75%    80%    90%    95%    98%    99%  99.9% 99.99%   100% # reqs
+GET      /logistics/                                                                             2      2      2      2      2      3      3      4     14   3000   3000 138380
+         Aggregated                                                                              2      2      2      2      2      3      3      4     14   3000   3000 138380

@@ -1,0 +1,28 @@
+@startuml saga-fail-payment
+title Saga «Оформление заказа» — отказ оплаты (компенсация: снятие резерва)
+
+skinparam backgroundColor #FAFAFA
+skinparam sequenceMessageAlign center
+
+actor "Покупатель" as buyer
+participant "Order\nService" as order
+queue "Kafka" as bus
+participant "Inventory\nService" as inv
+participant "Payment\nService" as pay
+
+order -> bus : publish OrderCreated
+bus -> inv : OrderCreated
+inv -> bus : publish InventoryReserved
+bus -> pay : InventoryReserved
+pay -> pay : списание отклонено\n(нет средств)
+pay -> bus : publish PaymentFailed
+
+note over inv, pay #FFE0E0: Компенсация: откат резерва
+bus -> inv : PaymentFailed
+inv -> inv : снять резерв
+inv -> bus : publish InventoryReleased
+
+bus -> order : PaymentFailed / InventoryReleased
+order -> bus : publish OrderCancelled
+order -> buyer : статус «Отменён»
+@enduml

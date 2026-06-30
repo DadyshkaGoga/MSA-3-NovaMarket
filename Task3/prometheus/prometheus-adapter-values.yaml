@@ -1,0 +1,20 @@
+# prometheus-adapter values: publish http_requests_per_second (rate(http_requests_total[1m]) per pod)
+# into custom.metrics.k8s.io for hpa-rps.yaml.
+prometheus:
+  url: http://prometheus-server.monitoring.svc
+  port: 80
+
+rules:
+  default: false
+  custom:
+    - seriesQuery: '{__name__="http_requests_total"}'
+      resources:
+        overrides:
+          namespace:
+            resource: namespace
+          pod:
+            resource: pod
+      name:
+        matches: "^http_requests_total$"
+        as: "http_requests_per_second"
+      metricsQuery: 'sum(rate(<<.Series>>{<<.LabelMatchers>>}[1m])) by (<<.GroupBy>>)'

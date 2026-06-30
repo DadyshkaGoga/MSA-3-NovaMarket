@@ -1,0 +1,20 @@
+@startuml saga-fail-no-stock
+title Saga «Оформление заказа» — отказ: нет наличия (компенсаций не требуется)
+
+skinparam backgroundColor #FAFAFA
+skinparam sequenceMessageAlign center
+
+actor "Покупатель" as buyer
+participant "Order\nService" as order
+queue "Kafka" as bus
+participant "Inventory\nService" as inv
+
+order -> bus : publish OrderCreated
+bus -> inv : OrderCreated
+inv -> inv : резерв невозможен\n(нет товара)
+inv -> bus : publish InventoryReservationFailed
+bus -> order : InventoryReservationFailed
+note over order: ничего не занято и не списано —\nкомпенсации не нужны
+order -> bus : publish OrderCancelled
+order -> buyer : статус «Отменён»
+@enduml

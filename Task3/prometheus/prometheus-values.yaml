@@ -1,0 +1,16 @@
+# prometheus chart values. scrape_interval is 15s because the adapter's rate(...[1m]) goes empty if
+# Prometheus scrapes less often than ~30s. The rest trims components the RPS-HPA doesn't need.
+server:
+  global:
+    scrape_interval: 15s
+  persistentVolume:
+    enabled: false
+
+alertmanager:
+  enabled: false
+prometheus-pushgateway:
+  enabled: false
+kube-state-metrics:
+  enabled: false
+prometheus-node-exporter:
+  enabled: false
