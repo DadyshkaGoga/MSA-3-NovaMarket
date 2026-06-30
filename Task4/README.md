@@ -50,7 +50,7 @@ locust -f circuit_breaker.py --host=http://localhost:8080 --headless -u 20 -r 20
 | Файл | Что показывает |
 |------|----------------|
 | [30-rate-limiter-locust.log](./verification/30-rate-limiter-locust.log) | rate limiter: при обстреле ~1200 r/s с одного IP отклоняется **96.9% (web)** и **98.2% (mobile)** запросов кодом `429`; пропускная способность совпадает с лимитами (web ~50 r/s, mobile ~30 r/s) |
-| [31-circuit-breaker-curl.log](./verification/31-circuit-breaker-curl.log) | circuit breaker, последовательные запросы: первые ~10 ждут таймаут **~3.0 s**, после накопления 5 ошибок breaker размыкается → запросы 11+ получают мгновенный fallback **~0.001 s** |
+| [31-circuit-breaker-curl.log](./verification/31-circuit-breaker-curl.log) | circuit breaker, последовательные запросы (два недоступных сервера): первые ~5 запросов ловят по одному таймауту **~3.0 s** вперемешку с мгновенным fallback на уже помеченном сервере; после ~5 ошибок на сервер (≈запрос 10) breaker полностью открыт → запросы 11+ мгновенные **~0.001 s** |
 | [32-circuit-breaker-locust.log](./verification/32-circuit-breaker-locust.log) | circuit breaker, locust: медиана **2 мс** (fallback при открытом breaker), хвост **3000 мс** на перцентиле 99.99% (таймауты до размыкания и периодические half-open пробы) |
 
 **Итог.** Rate limiter режет трафик по разным лимитам каналов (web 50 / mobile 30 r/s → `429`).
@@ -62,11 +62,11 @@ Circuit breaker при недоступном логисте перестаёт 
 - В `nginx-test.conf` апстрим `logistics_backend` указывает на недоступные адреса (blackhole),
   чтобы обращения реально упирались в таймаут 3 c — это и нужно для наблюдаемого срабатывания
   circuit breaker (return-based mock не может «висеть»). Боевой `circuit_breaker.conf` ссылается на
-  реальный внешний `logistics.company.com`.
-- **Infrastructure truth:** open-source NGINX **игнорирует** `max_fails` для upstream из ОДНОГО
-  сервера («such a server will never be considered unavailable»). Поэтому в `nginx-test.conf`
-  для наблюдаемого размыкания заданы ДВА недоступных сервера (+ `proxy_next_upstream_tries 1`).
-  Боевой `circuit_breaker.conf` оставлен в формулировке задания (один логист) — для реального прода
-  размыкание обеспечивают ≥2 апстрима (или backup), это и показано в тесте.
+  реальные эндпоинты логиста (`logistics-1/2.company.com`).
+- **Особенность инфраструктуры:** open-source NGINX **игнорирует** `max_fails` для upstream из
+  одного сервера («such a server will never be considered unavailable»). Поэтому и боевой
+  `circuit_breaker.conf`, и `nginx-test.conf` задают по ДВА эндпоинта логиста
+  (+ `proxy_next_upstream_tries 1`, чтобы один запрос не упирался в 2×3 c) — только так пассивный
+  health-check реально размыкает breaker. Наблюдаемое размыкание снято в `verification/31..32`.
 - Скриншоты срабатывания (для сдачи) снимаются с веб-интерфейса locust / из логов; задание
   допускает и логи — они зафиксированы в `verification/`.

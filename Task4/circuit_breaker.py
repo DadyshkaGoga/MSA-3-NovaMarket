@@ -16,11 +16,8 @@ class LogisticsUser(HttpUser):
             name="/logistics/",
             catch_response=True,
         ) as r:
-            # The fallback returns 200 with a "degraded" body -- treat it as the breaker working.
-            body = r.text or ""
-            if r.status_code == 200 and "degraded" in body:
-                r.success()
-            elif r.status_code == 200:
+            # The fallback returns 200 with a "degraded" body -- treat any 200 as the breaker working.
+            if r.status_code == 200:
                 r.success()
             else:
                 r.failure(f"unexpected {r.status_code}")
