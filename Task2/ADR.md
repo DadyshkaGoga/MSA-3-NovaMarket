@@ -50,7 +50,7 @@ API-композитор (BFF/шлюз) в момент запроса синх�
 read-optimized БД. Проекция наполняется потреблением доменных событий, которые система уже
 публикует: `OrderCreated`, `PaymentSucceeded`, `DeliveryScheduled`, `OrderDelivered`,
 `OrderCancelled`. Чтение истории — один быстрый запрос к проекции. См.
-[c2-eda-history.puml](./c2-eda-history.png).
+[c2-eda-history.png](./c2-eda-history.png).
 
 ### Вариант 3. Event Sourcing
 Состояние заказа хранится как лог событий — источник истины; представление истории
