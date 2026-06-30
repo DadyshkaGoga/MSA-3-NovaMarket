@@ -1,0 +1,22 @@
+# Values for the prometheus-community/prometheus chart (Part 2 of Task3).
+# The default kubernetes-pods scrape job already honors the pod annotations from deployment.yaml
+# (prometheus.io/scrape/port/path) and adds the `pod`/`namespace` labels that
+# prometheus-adapter-values.yaml maps to Kubernetes resources.
+#
+# scrape_interval is pinned to 15s on purpose: the adapter rule uses rate(http_requests_total[1m]),
+# which returns empty if Prometheus scrapes less often than ~30s. The rest just trims components the
+# RPS-HPA does not need on a local Minikube cluster.
+server:
+  global:
+    scrape_interval: 15s
+  persistentVolume:
+    enabled: false
+
+alertmanager:
+  enabled: false
+prometheus-pushgateway:
+  enabled: false
+kube-state-metrics:
+  enabled: false
+prometheus-node-exporter:
+  enabled: false

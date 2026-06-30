@@ -11,6 +11,7 @@
 | [service.yaml](./service.yaml) | ClusterIP Service на 8080 |
 | [hpa-memory.yaml](./hpa-memory.yaml) | Часть 1 — HPA по памяти: целевая утилизация 80%, 1..10 реплик |
 | [hpa-rps.yaml](./hpa-rps.yaml) | Часть 2 — HPA по RPS на под (custom-метрика `http_requests_per_second`) |
+| [prometheus/prometheus-values.yaml](./prometheus/prometheus-values.yaml) | Values установки Prometheus: `scrape_interval: 15s` (нужно для `rate[1m]`) + отключение лишних компонентов |
 | [prometheus/prometheus-adapter-values.yaml](./prometheus/prometheus-adapter-values.yaml) | Правило prometheus-adapter: `rate(http_requests_total[1m])` → custom-метрика для HPA |
 | [locustfile.py](./locustfile.py) | Сценарий нагрузки (из задания) |
 | [local-loadapp/](./local-loadapp) | arm64-аналог тест-приложения для живого прогона (см. «Замечания») |
@@ -26,7 +27,9 @@
   Поэтому для части 2 поднимается Prometheus (скрейпит `/metrics` по аннотациям
   `prometheus.io/scrape`) и `prometheus-adapter`, который публикует
   `http_requests_per_second = sum(rate(http_requests_total[1m])) by (pod)` в
-  `custom.metrics.k8s.io`. Её потребляет `hpa-rps.yaml` (цель — 10 rps/под).
+  `custom.metrics.k8s.io`. Её потребляет `hpa-rps.yaml` (цель — 10 rps/под). Prometheus ставится с
+  `scrape_interval: 15s` (`prometheus/prometheus-values.yaml`) — при более редком скрейпе
+  `rate(...[1m])` пуст и HPA по RPS не получает метрику.
 
 ## Как запустить и проверить
 
@@ -45,7 +48,8 @@ locust -f locustfile.py --host http://localhost:8080 --headless -u 200 -r 20 -t 
 
 # Часть 2 — HPA по RPS (Prometheus + adapter)
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm install prometheus prometheus-community/prometheus -n monitoring --create-namespace
+helm install prometheus prometheus-community/prometheus -n monitoring --create-namespace \
+  -f prometheus/prometheus-values.yaml
 helm install prometheus-adapter prometheus-community/prometheus-adapter \
   -n monitoring -f prometheus/prometheus-adapter-values.yaml
 # проверить, что custom-метрика поднялась:
@@ -78,10 +82,17 @@ kubectl get hpa scaletestapp-rps -w        # REPLICAS растут при рос
 - **arm64-аналог для живого прогона.** Официальный образ `ghcr.io/yandex-practicum/scaletestapp`
   собран только под **amd64** и не запускается на Apple Silicon (arm64) без эмуляции (эмуляция в
   minikube нестабильна). Поэтому боевые манифесты ссылаются на официальный образ (корректно для
-  amd64-кластера ревьюера), а для живого прогона на arm64 используется функционально идентичный
-  локальный образ [local-loadapp/](./local-loadapp) (те же `GET /` и `GET /metrics` с
-  `http_requests_total`). Запуск с ним: `kubectl apply -f local-loadapp/deployment.local.yaml`
-  вместо `deployment.yaml` (Service и оба HPA — без изменений). GUI-скриншоты дашборда/Prometheus
-  Web UI добавляются отдельно; для доказательства достаточно логов в `verification/`.
-- **GUI-скриншоты** (дашборд Minikube, Prometheus Web UI) снимаются вручную; задание принимает
-  «скриншоты ИЛИ логи», и логи в `verification/` фиксируют факт масштабирования.
+  amd64-кластера ревьюера), а для живого прогона на arm64 используется локальный образ
+  [local-loadapp/](./local-loadapp) с теми же эндпоинтами `GET /` и `GET /metrics`
+  (`http_requests_total`). Запуск с ним: `kubectl apply -f local-loadapp/deployment.local.yaml`
+  вместо `deployment.yaml` (Service и оба HPA — без изменений). **Что именно воспроизведено
+  аналогом:** факт срабатывания HPA по памяти (часть 1) держится на инженерном ballast-аллокаторе
+  аналога (~64 KiB/запрос), профиль памяти официального образа им не проверяется; RPS-часть от
+  образа не зависит (метрика `http_requests_total` одинакова). На amd64-кластере те же манифесты
+  применяются к официальному образу без правок.
+- **Скриншоты.** Поступление RPS-метрики в `custom.metrics.k8s.io` подтверждено дампом
+  `kubectl get --raw …/http_requests_per_second` в
+  [verification/21-rps-hpa-describe.txt](./verification/21-rps-hpa-describe.txt). GUI-скриншоты
+  (дашборд Minikube, Prometheus Web UI: Targets/Graph) снимаются на amd64-кластере; задание
+  принимает «скриншоты **ИЛИ** логи», и логи в `verification/` фиксируют факт масштабирования для
+  обеих частей.
