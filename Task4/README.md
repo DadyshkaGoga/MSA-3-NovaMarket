@@ -53,10 +53,6 @@ locust -f circuit_breaker.py --host=http://localhost:8080 --headless -u 20 -r 20
 | [31-circuit-breaker-curl.log](./verification/31-circuit-breaker-curl.log) | circuit breaker, последовательные запросы (два недоступных сервера): первые ~5 запросов ловят по одному таймауту **~3.0 s** вперемешку с мгновенным fallback на уже помеченном сервере; после ~5 ошибок на сервер (≈запрос 10) breaker полностью открыт → запросы 11+ мгновенные **~0.001 s** |
 | [32-circuit-breaker-locust.log](./verification/32-circuit-breaker-locust.log) | circuit breaker, locust: медиана **2 мс** (fallback при открытом breaker), хвост **3000 мс** на перцентиле 99.99% (таймауты до размыкания и периодические half-open пробы) |
 
-**Итог.** Rate limiter режет трафик по разным лимитам каналов (web 50 / mobile 30 r/s → `429`).
-Circuit breaker при недоступном логисте перестаёт ждать таймаут и отдаёт контролируемый fallback —
-время ответа падает с ~3 с до ~1 мс.
-
 ## Замечания
 
 - В `nginx-test.conf` апстрим `logistics_backend` указывает на недоступные адреса (blackhole),

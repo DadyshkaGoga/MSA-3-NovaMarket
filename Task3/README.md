@@ -70,10 +70,6 @@ kubectl get hpa scaletestapp-rps -w        # REPLICAS растут при рос
 | [20-rps-hpa-watch.log](./verification/20-rps-hpa-watch.log) | часть 2: число реплик растёт `1 → 4 → 8 → 10` под нагрузкой и снижается после её снятия |
 | [21-rps-hpa-describe.txt](./verification/21-rps-hpa-describe.txt) | часть 2: custom.metrics API отдаёт `http_requests_per_second` на под; события `New size: 4/8/10; reason: pods metric http_requests_per_second above target` |
 
-**Итог.** Часть 1 — HPA по памяти масштабировал приложение `1 → 2` при превышении порога 80%
-(`145%/80%`). Часть 2 — HPA по RPS через Prometheus + prometheus-adapter масштабировал `1 → 10`
-(до максимума) под нагрузкой ~100 rps и затем сворачивал реплики после снятия нагрузки.
-
 ## Замечания
 
 - **Опечатка в задании.** В тексте сказано «количество реплик **базы данных**» — в тестовом
