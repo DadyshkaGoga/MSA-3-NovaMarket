@@ -1,6 +1,5 @@
-# Test app scaletestapp: GET / (pod id), GET /metrics (Prometheus).
-# Starts with a single replica; memory limit 30Mi per the assignment.
-# requests.memory is set explicitly: the memory HPA computes utilization as a percentage of requests.
+# scaletestapp: 1 replica, 30Mi memory limit (per the assignment). requests.memory is set so the
+# memory HPA can compute utilization -- it's a percentage of requests, not of the limit.
 apiVersion: apps/v1
 kind: Deployment
 metadata:

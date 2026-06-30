@@ -1,7 +1,5 @@
-# Part 2. HPA on requests-per-second per pod.
-# The http_requests_per_second metric is published by prometheus-adapter into custom.metrics.k8s.io
-# (rate(http_requests_total[1m]) per pod -- see prometheus/prometheus-adapter-values.yaml).
-# Target is 10 rps per pod; above that the HPA adds replicas (1..10).
+# Scale on requests-per-second per pod (target 10). The http_requests_per_second metric comes from
+# prometheus-adapter -- see prometheus/prometheus-adapter-values.yaml.
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:

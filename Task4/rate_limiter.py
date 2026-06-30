@@ -1,8 +1,5 @@
-# Locust scenario for the rate limiter.
-# Two user classes with different channels (X-Client-Type header):
-#   web    -> 50 r/s per IP,
-#   mobile -> 30 r/s per IP.
-# Over the limit NGINX returns 429 -- in locust stats this shows up as failures on /api/.
+# Locust scenario for the rate limiter: web and mobile channels (X-Client-Type). Over the limit
+# NGINX returns 429, which shows up as failures on /api/.
 from locust import HttpUser, task, constant
 
 

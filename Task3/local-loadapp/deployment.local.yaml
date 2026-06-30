@@ -1,6 +1,5 @@
-# Manifest for the live run on Apple Silicon only: same Deployment as the production
-# deployment.yaml, but with the local arm64 stand-in image (imagePullPolicy: Never, loaded via
-# minikube image load). The Service and both HPAs (hpa-memory.yaml, hpa-rps.yaml) are reused as-is.
+# Same as deployment.yaml but with the local arm64 stand-in image (loaded via `minikube image load`).
+# Service and both HPAs are reused unchanged.
 apiVersion: apps/v1
 kind: Deployment
 metadata:

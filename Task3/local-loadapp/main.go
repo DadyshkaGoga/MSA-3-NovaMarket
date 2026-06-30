@@ -1,16 +1,11 @@
-// Local arm64-compatible stand-in for ghcr.io/yandex-practicum/scaletestapp.
-// Needed only for the live run on Apple Silicon: the official image is amd64-only and won't
-// run on an arm64 cluster without emulation. Production manifests (deployment.yaml) reference
-// the official image; this is a functional equivalent used to reproduce autoscaling locally.
-//
-// Same endpoints as the original:
-//
-//	GET /        -> pod id (hostname); increments http_requests_total; holds some memory
-//	GET /metrics -> http_requests_total in Prometheus text format
+// Local arm64 stand-in for ghcr.io/yandex-practicum/scaletestapp (the official image is amd64-only
+// and won't run on Apple Silicon). Same endpoints: GET / returns the pod id and bumps the counter,
+// GET /metrics exposes http_requests_total. The production deployment.yaml uses the official image.
 package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"sync"
@@ -20,7 +15,7 @@ import (
 var (
 	requests int64
 	mu       sync.Mutex
-	ballast  [][]byte // retained memory -> utilization grows under load (drives the memory HPA)
+	ballast  [][]byte // held memory grows with load and drives the memory HPA
 )
 
 func main() {
@@ -28,8 +23,8 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		atomic.AddInt64(&requests, 1)
-		// Each request retains ~64 KiB, capped at ~20 MiB total, so utilization rises above the
-		// 80% threshold (16Mi of the 20Mi request) while staying under the 30Mi limit (no OOM).
+		// ~64 KiB per request, capped near 20 MiB: crosses the 80% target (of the 20Mi request)
+		// but stays under the 30Mi limit, so it scales without OOM.
 		mu.Lock()
 		if len(ballast) < 320 {
 			ballast = append(ballast, make([]byte, 64*1024))
@@ -45,5 +40,5 @@ func main() {
 		fmt.Fprintf(w, "http_requests_total %d\n", atomic.LoadInt64(&requests))
 	})
 
-	http.ListenAndServe(":8080", nil)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }

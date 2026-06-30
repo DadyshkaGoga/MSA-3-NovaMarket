@@ -1,9 +1,4 @@
-# Self-contained build of the local arm64 stand-in for scaletestapp (live run only).
-# The production deployment.yaml references the official image; this one is a native
-# replacement for Apple Silicon, where the amd64 image does not run.
-#
-#   docker build -t scaletestapp-local:arm64 .
-#   minikube image load scaletestapp-local:arm64
+# Local arm64 build of the scaletestapp stand-in (the official image is amd64-only).
 FROM golang:1.23-alpine AS build
 WORKDIR /src
 COPY main.go .

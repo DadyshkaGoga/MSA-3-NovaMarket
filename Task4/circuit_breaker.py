@@ -1,8 +1,5 @@
-# Locust scenario for the circuit breaker on /logistics/.
-# While "logistics" responds with a timeout (>3s), the first requests wait ~3s and get a fallback
-# (NGINX counts them as upstream errors). After 5 consecutive errors the circuit breaker opens for
-# 30s: requests stop waiting on the upstream and get an instant fallback -- in locust stats this
-# shows up as a sharp drop in response time (from ~3000 ms to a few ms).
+# Locust scenario for the circuit breaker on /logistics/. The upstream times out (>3s); after 5
+# errors the breaker opens and fallbacks become instant -- response time drops from ~3s to a few ms.
 from locust import HttpUser, task, constant
 
 

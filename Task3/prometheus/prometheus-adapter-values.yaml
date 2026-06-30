@@ -1,9 +1,5 @@
-# Values for the prometheus-community/prometheus-adapter Helm chart.
-# Publishes a custom metric http_requests_per_second (rate(http_requests_total[1m]) per pod)
-# into the custom.metrics.k8s.io API, which hpa-rps.yaml consumes.
-#
-# prometheus.url points at the Prometheus server installed by the
-# prometheus-community/prometheus chart in the monitoring namespace.
+# prometheus-adapter values: publish http_requests_per_second (rate(http_requests_total[1m]) per pod)
+# into custom.metrics.k8s.io for hpa-rps.yaml.
 prometheus:
   url: http://prometheus-server.monitoring.svc
   port: 80

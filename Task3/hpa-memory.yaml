@@ -1,6 +1,4 @@
-# Part 1. HPA on memory utilization.
-# Target utilization 80% (of requests.memory = 20Mi), 1..10 replicas.
-# Memory metrics come from metrics-server (minikube addons enable metrics-server).
+# Scale on memory utilization (80% of requests.memory), 1..10 replicas. Needs metrics-server.
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
